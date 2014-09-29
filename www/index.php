@@ -1,5 +1,6 @@
 <?php
 
+
 if(!empty($_POST)){
     $params=$_POST;
 }else{
@@ -17,7 +18,6 @@ function __autoload($class){
     
     include('/var/www/blog/'.$class.'.php');
 }
-
 
 
 $objetControleur = new $nomControleur();
