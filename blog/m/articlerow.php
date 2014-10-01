@@ -9,7 +9,6 @@ class ArticleRow extends \MVC\TableRow{
         unset($this->tags);
         
         parent::store();
-        
         $this->deleteAllTags();
         foreach($tags as $t){
             $this->addTag(trim($t));
@@ -18,23 +17,22 @@ class ArticleRow extends \MVC\TableRow{
     
     public  function addTag($tag){
         //recherche du tag
-        $tagTable=  new Tag();
-        $tagRow = $tagTable->whereFirst('label=?', array($tag));
-        if(is_null($tagRow)){
-            $tagRow=new \MVC\TableRow();
-            $tagRow->_table='tag';
-            $tagRow->id=null;
-            $tagRow->label=$tag;
-            $tagRow->store();
+        if(trim($tag)!=''){
+            $tagTable=  new Tag();
+            $tagRow = $tagTable->whereFirst('label=?', array($tag));
+            if(is_null($tagRow)){
+                $tagRow=$tagTable->newItem();
+                $tagRow->label=$tag;
+                $tagRow->store();
+            }
+
+            //enregistrement dans article_tag
+            $articleTagTable=new ArticleTag();
+            $articleTag=$articleTagTable->newItem();
+            $articleTag->article_id=$this->id;
+            $articleTag->tag_id=$tagRow->id;
+            $articleTag->store();        
         }
-        
-        //enregistrement dans article_tag
-        $articleTag=new \MVC\TableRow();
-        $articleTag->id=null;
-        $articleTag->_table='article_tag';
-        $articleTag->article_id=$this->id;
-        $articleTag->tag_id=$tagRow->id;
-        $articleTag->store();        
     }
     
     private function deleteAllTags(){
@@ -48,6 +46,7 @@ class ArticleRow extends \MVC\TableRow{
         $articlesTags=new ArticleTag();
         
         $allTags=$articlesTags->where('article_id=?',array($this->id));
+        
         return $allTags;
     }
     
@@ -61,5 +60,23 @@ class ArticleRow extends \MVC\TableRow{
             $labels[]=$tag->label;
         }
         return $labels;
+    }
+    
+    function getCommentaires(){
+        $commentaireTable = new Commentaire();
+        
+        $commentaires = $commentaireTable->where('article_id=?',array($this->id));
+        return $commentaires;
+    }
+    function addCommentaire($texte,$auteur){
+        $commentaireTable = new Commentaire();
+        $commentaire=$commentaireTable->newItem();
+        
+        $commentaire->texte=$texte;
+        $commentaire->article_id=$this->id;
+        $commentaire->auteur=$auteur;
+        $commentaire->date=date('Y-m-d H:i:s');
+        $commentaire->store();
+        
     }
 }

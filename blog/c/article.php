@@ -40,8 +40,15 @@ class Article {
             $this->afficher($params);
         }else{
             $this->formulaire($params);
-        }
-        
+        }        
+    }
+    
+    function ajouterCommentaire($params){
+        $article = new \Blog\M\Article();
+        $articleAModifier = $article->get($params['id']);
+
+        $articleAModifier->addCommentaire($params['texte'],$params['auteur']);
+        $this->afficher($params);
     }
 }
 
