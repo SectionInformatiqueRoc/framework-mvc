@@ -18,8 +18,7 @@ class Connexion {
             } catch (PDOException $e) {
                 echo 'Connexion échouée : ' . $e->getMessage();
             }
-            self::$pdo->exec('SET NAMES \'utf8\'');        
-            var_dump(self::$pdo);
+            self::$pdo->exec('SET NAMES \'utf8\'');
         }
         return self::$pdo;
     }
