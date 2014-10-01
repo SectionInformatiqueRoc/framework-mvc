@@ -24,13 +24,19 @@ class Connexion {
         return self::$pdo;
     }
     
-    static public function query($query,$params){
+    static public function query($query,$params,$class){
         $queryPrepare = self::get()->prepare($query);
         $queryPrepare->execute($params);
-        $rows=$queryPrepare->fetchAll(\PDO::FETCH_CLASS,  get_called_class());
+        $rows=$queryPrepare->fetchAll(\PDO::FETCH_CLASS,  $class);
         return $rows;
+    }
+    static public function exec($query,$params){
+        $queryPrepare = self::get()->prepare($query);
+        $queryPrepare->execute($params);
 
+        //var_dump($query);
+        //var_dump($params);
+
+        return $queryPrepare;
     }
 }
-
-?>
