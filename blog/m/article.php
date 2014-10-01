@@ -7,6 +7,7 @@ class Article extends \MVC\Table{
     function getTable(){
         return 'article';
     }
+    
     function getClassRow() {
         return '\Blog\M\ArticleRow';
     }

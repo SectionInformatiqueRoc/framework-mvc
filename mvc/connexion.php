@@ -29,13 +29,11 @@ class Connexion {
         $rows=$queryPrepare->fetchAll(\PDO::FETCH_CLASS,  $class);
         return $rows;
     }
+    
     static public function exec($query,$params){
         $queryPrepare = self::get()->prepare($query);
         $queryPrepare->execute($params);
-
-        //var_dump($query);
-        //var_dump($params);
-
+        
         return $queryPrepare;
     }
 }

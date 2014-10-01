@@ -25,6 +25,7 @@ class Article {
 
         include('/var/www/blog/blog/v/article/formulaire.php');
     }
+    
     function modifier($params){
         $article = new \Blog\M\Article();
         $articleAModifier = $article->get($params['id']);

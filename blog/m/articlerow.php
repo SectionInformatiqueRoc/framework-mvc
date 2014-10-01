@@ -15,6 +15,7 @@ class ArticleRow extends \MVC\TableRow{
             $this->addTag(trim($t));
         }
     }
+    
     public  function addTag($tag){
         //recherche du tag
         $tagTable=  new Tag();
@@ -35,18 +36,21 @@ class ArticleRow extends \MVC\TableRow{
         $articleTag->tag_id=$tagRow->id;
         $articleTag->store();        
     }
+    
     private function deleteAllTags(){
         $allTags=  $this->getTags();
         foreach ($allTags as $at){
             $at->delete();
         }
     }
+    
     function getTags(){
         $articlesTags=new ArticleTag();
         
         $allTags=$articlesTags->where('article_id=?',array($this->id));
         return $allTags;
     }
+    
     function getTagsLabel(){
         $labels=array();
         $articleTags=$this->getTags();
