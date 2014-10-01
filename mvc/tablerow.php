@@ -59,4 +59,7 @@ class TableRow {
         $query = 'delete from `' . $this->_table . '` where id=?';
         Connexion::exec($query,array($this->id));
     }
+    function setTable($table){
+        return $this->_table=$table;
+    }
 }
