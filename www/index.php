@@ -7,6 +7,12 @@ if(!empty($_POST)){
     $params=$_GET;
 }
 
+if(empty($params))
+{
+    $params['controleur'] = Blog\Params\Appli::controleurparDefaut;
+    $params['action'] = Blog\Params\Appli::actionParDefaut;
+}
+
 $nomControleur = '\\Blog\C\\'.$params['controleur'];
 $nomAction = $params['action'];
 
