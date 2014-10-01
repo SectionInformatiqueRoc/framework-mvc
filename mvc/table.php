@@ -12,7 +12,15 @@ abstract class Table {
         if(!is_null($where)){
             $query.='where '.$where;
         }
-        return Connexion::query($query,$params,$this->getClassRow());        
+        
+        $rows=Connexion::query($query,$params,$this->getClassRow());        
+        if($this->getClassRow()=='\MVC\TableRow'){
+            $table=$this->getTable();
+            foreach ($rows as $row) {
+                $row->setTable($table);
+            }
+        }
+        return $rows;
     }
     
     function whereFirst($where,$params){
@@ -34,5 +42,11 @@ abstract class Table {
         }
         return $this->where($ordre);
     }
-
+    function newItem(){
+        $classRow=  $this->getClassRow();
+        $item=new $classRow();
+        $item->id=null;
+        $item->setTable($this->getTable());
+        return $item;
+    }
 }
