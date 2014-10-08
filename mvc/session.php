@@ -4,8 +4,8 @@ namespace MVC;
 
 class Session
 {
-    const SESSION_STARTED = TRUE; //session ouverte = vraie
-    const SESSION_NOT_STARTED = FALSE; //session fermée = faux
+    const SESSION_STARTED = TRUE; //session open=true
+    const SESSION_NOT_STARTED = FALSE; //session closed=false
    
    
     private $sessionState = self::SESSION_NOT_STARTED;
@@ -17,10 +17,10 @@ class Session
     private function __construct() {}
         
     /**
-    *    Retourne l'instance de Session
-    *    Session est automatiquement automatiser.
+    *    return the instance session
+    *    the session automatically automate .
     *   
-    *    @return    l'object
+    *    @return    the object
     **/
    
     public static function getInstance()
@@ -34,17 +34,15 @@ class Session
         return self::$instance;
     }
    /**
-    * Self = Celà s'utilise pour accéder à une variable de la classe parente 
-    * (attention, les variables doivent être statiques).
-    * A noter que pour utiliser les :: il faut que la fonction et la variable 
-    * soient statiques.
-    * $this" fait référence à l'instance courante de l'objet
+    * Self = Be used for getting a variable of the parent's class
+    * 
+    * (Caution ! , The variable have to be static).
     */
    
     /**
-    *    Start de la sessionn.
+    *    Session start.
     *   
-    *    @return    bool    TRUE si la session est initialiser, else FALSE.
+    *    @return    bool    TRUE if the session is initialisate, else FALSE.
     **/
    
     private function startSession()
@@ -59,11 +57,11 @@ class Session
    
    
     /**
-    *    Enregistrer de la session.
+    *    Saving of the session.
     *    Example: $instance->foo = 'bar';
     *   
-    *    @param    name    Nom des données.
-    *    @param    value    valeur données.
+    *    @param    name   Data name.
+    *    @param    value    Data values.
     *    @return    void
     **/
    
@@ -74,11 +72,11 @@ class Session
    
    
     /**
-    *    Prendre les données de la session.
+    *    Take data session's.
     *    Example: echo $instance->foo;
     *   
-    *    @param    name    nom des données a recup.
-    *    @return    mixed    session d'enregistrement de la session.
+    *    @param    name    name of the getting data.
+    *    @return    mixed    Saving session of the session.
     **/
    
     public function __get( $name )
@@ -105,9 +103,9 @@ class Session
    
    
     /**
-    *    Detruit la session courante.
+    *    Destroy the current session.
     *   
-    *    @return    bool    TRUE si la session est delete, else FALSE.
+    *    @return    bool    TRUE if the session if delete, else FALSE.
     **/
    
     public function destroy()
