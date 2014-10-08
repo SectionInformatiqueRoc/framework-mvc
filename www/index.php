@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
+$session=MVC\Session::getInstance();
+
 if(!empty($_POST)){
     $params=$_POST;
 }else{
